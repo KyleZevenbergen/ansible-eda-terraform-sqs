@@ -13,3 +13,9 @@
     - name: Debug parsed event
       debug:
         var: target_ip
+
+    - name: Add dynamic host to inventory
+      ansible.builtin.add_host:
+        name: "{{ target_ip }}"
+        ansible_host: "{{ target_ip }}"
+        groups: dynamic_hosts
