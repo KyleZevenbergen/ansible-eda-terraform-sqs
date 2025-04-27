@@ -1,0 +1,18 @@
+# process_message.yml
+---
+- name: Display incoming SQS event
+  hosts: localhost
+  gather_facts: false        # keep it lightweight
+
+  vars:
+    raw_event:   "{{ payload }}"           # comes from the rulebook extra_vars
+    json_event:  "{{ payload | from_json }}"
+
+  tasks:
+    - name: Show raw message
+      debug:
+        msg: "RAW SQS payload: {{ raw_event }}"
+
+    - name: Show parsed message
+      debug:
+        var: json_event
