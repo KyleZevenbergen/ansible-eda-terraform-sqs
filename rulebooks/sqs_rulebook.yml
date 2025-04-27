@@ -6,6 +6,8 @@
     - ansible.eda.aws_sqs_queue:
         name: terraform-events
         region: us-east-1
+        access_key: "{{ AWS_ACCESS_KEY_ID }}"
+        secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
         wait_time_seconds: 20
   rules:
     - name: fire_for_every_message
