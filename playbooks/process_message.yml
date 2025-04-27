@@ -19,3 +19,19 @@
         name: "{{ target_ip }}"
         ansible_host: "{{ target_ip }}"
         groups: dynamic_hosts
+
+- name: Connect to the newly added host
+  hosts: dynamic_hosts
+  gather_facts: false
+
+  tasks:
+    - name: Test connectivity with ping
+      ping:
+
+    - name: Run a remote command
+      ansible.builtin.shell: uptime
+      register: uptime_out
+
+    - name: Show uptime result
+      debug:
+        var: uptime_out.stdout
