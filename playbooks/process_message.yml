@@ -1,8 +1,8 @@
 # process_message.yml
 ---
-- name: Display incoming SQS event
-  hosts: localhost
-  gather_facts: false
+# - name: Display incoming SQS event
+#   hosts: localhost
+#   gather_facts: false
 
   # vars:
   #   # ansible_eda.event.body is a JSON string like '{"ip":"1.2.3.4","user":"ec2-user"}'
@@ -20,7 +20,7 @@
   #       groups: dynamic_hosts
 
 - name: Connect to the newly added host
-  hosts: aws hosts
+  hosts: all
   gather_facts: false
 
   tasks:
