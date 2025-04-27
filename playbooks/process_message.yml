@@ -24,6 +24,10 @@
   become: true
   gather_facts: true
 
+  vars:
+    default_image_url: "https://placedog.net/1000/?r"
+    cat_image_url: "https://placecats.com/millie_neo/1000/1000"
+
   tasks:
     - name: Enable nginx in amazon-linux-extras (only needed for Amazon Linux)
       ansible.builtin.command: amazon-linux-extras enable nginx1
@@ -40,12 +44,16 @@
         state: started
         enabled: true
 
-    - name: Create a simple web page
+    - name: Set web image url based on first octet of hostname
+      set_fact:
+        web_image_url: "{{ cat_image_url if (inventory_hostname.split('-')[1]|int) % 2 == 1 else default_image_url }}"
+
+    - name: Create a simple web page with host-specific image
       ansible.builtin.copy:
         dest: /usr/share/nginx/html/index.html
         content: |
           <html>
           <head><title>Configured by Ansible</title></head>
           <body><h1>Success! This server was configured by Ansible.</h1></body>
-          <center><img src="https://placedog.net/1000/?r"></img></center>
+          <center><img src="{{ web_image_url }}"></img></center>
           </html>
