@@ -1,7 +1,7 @@
-# sqs_rulebook.yml
+# rulebooks/sqs_rulebook.yml
 ---
 - name: sqs_listener
-  hosts: localhost          # keep it; harmless
+  hosts: localhost
   sources:
     - ansible.eda.aws_sqs_queue:
         name: terraform-events
@@ -11,9 +11,10 @@
     - name: fire_for_every_message
       condition: event.body is defined
       action:
-        run_playbook:
-          name: ../playbooks/process_message.yml
-          inventory: ../inventories/localhost.yml     # <-- new line
+        run_job_template:
+          name: terraform process job          # exact template name
+          organization: Default          # your org name
           extra_vars:
             payload: "{{ event.body }}"
+
 
