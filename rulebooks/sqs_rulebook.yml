@@ -1,19 +1,19 @@
 # sqs_rulebook.yml
 ---
-- name: sqs_listener                # ruleset name (appears in AAP UI)
-  hosts: localhost                  # EDA workers run “on” localhost
-
+- name: sqs_listener
+  hosts: localhost          # keep it; harmless
   sources:
-    - ansible.eda.aws_sqs_queue:    # tell EDA to pull from SQS
-        name: terraform-events       # OR use queue_url: https://…
-        region: us-east-1           # AWS region of the queue
-        wait_time_seconds: 20       # 0-20 s long-poll; keeps API calls low
-
+    - ansible.eda.aws_sqs_queue:
+        name: terraform-events
+        region: us-east-1
+        wait_time_seconds: 20
   rules:
     - name: fire_for_every_message
-      condition: event.body is defined      # always true for SQS messages
+      condition: event.body is defined
       action:
         run_playbook:
-          name: process_message.yml         # <-- create this next
+          name: ../playbooks/process_message.yml
+          inventory: ../inventories/localhost.yml     # <-- new line
           extra_vars:
-            payload: "{{ event.body }}"     # pass the raw JSON along
+            payload: "{{ event.body }}"
+
