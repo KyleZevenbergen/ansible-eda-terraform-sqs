@@ -5,8 +5,8 @@
   gather_facts: false        # keep it lightweight
 
   vars:
-    raw_event:   "{{ payload }}"           # comes from the rulebook extra_vars
-    json_event:  "{{ payload | from_json }}"
+    raw_event:   "{{ ansible_eda.event.body }}"
+    json_event:  "{{ raw_event | from_json }}"
 
   tasks:
     - name: Show raw message
