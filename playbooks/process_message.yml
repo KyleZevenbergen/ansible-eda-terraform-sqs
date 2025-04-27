@@ -44,9 +44,9 @@
         state: started
         enabled: true
 
-    - name: Set web image url based on first octet of hostname
+    - name: Set web image url based on second octet of hostname
       set_fact:
-        web_image_url: "{{ cat_image_url if (inventory_hostname.split('-')[1]|int) % 2 == 1 else default_image_url }}"
+        web_image_url: "{{ cat_image_url if (inventory_hostname.split('-')[2]|int) % 2 == 1 else default_image_url }}"
 
     - name: Create a simple web page with host-specific image
       ansible.builtin.copy:
