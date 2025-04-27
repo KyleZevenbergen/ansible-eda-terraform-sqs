@@ -5,7 +5,7 @@
   gather_facts: false        # keep it lightweight
 
   vars:
-    raw_event:   "{{ ansible_eda.event.body }}"
+    raw_event:   "{{ ansible_eda.event }}"
 
   tasks:
     - name: Show raw message
