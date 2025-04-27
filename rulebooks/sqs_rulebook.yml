@@ -6,13 +6,10 @@
     - ansible.eda.aws_sqs_queue:
         name: terraform-events
         region: us-east-1
+        access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
         wait_time_seconds: 20
   rules:
-    - name: dump env
-      condition: true
-      action:
-        debug:
-          msg: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     - name: fire_for_every_message
       condition: event.body is defined
       action:
