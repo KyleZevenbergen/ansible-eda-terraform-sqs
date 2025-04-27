@@ -6,11 +6,10 @@
 
   vars:
     # ansible_eda.event.body is a JSON string like '{"ip":"1.2.3.4","user":"ec2-user"}'
-    raw_body:   "{{ ansible_eda.event.body }}"
-    event_data: "{{ raw_body  | from_json }}"
-    target_ip:  "{{ event_data.ip }}"
+    target_ip:   "{{ ansible_eda.event.body.ip }}"
+
 
   tasks:
     - name: Debug parsed event
       debug:
-        var: event_data
+        var: target_ip
