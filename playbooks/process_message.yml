@@ -47,4 +47,5 @@
           <html>
           <head><title>Configured by Ansible</title></head>
           <body><h1>Success! This server was configured by Ansible.</h1></body>
+          <center><img src="https://placedog.net/1000/s/?r"></img></center>
           </html>
