@@ -8,6 +8,11 @@
         region: us-east-1
         wait_time_seconds: 20
   rules:
+    - name: dump env
+      condition: true
+      action:
+        debug:
+          msg: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     - name: fire_for_every_message
       condition: event.body is defined
       action:
@@ -16,5 +21,3 @@
           organization: Default          # your org name
           extra_vars:
             payload: "{{ event.body }}"
-
-
