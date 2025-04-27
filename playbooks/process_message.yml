@@ -25,6 +25,10 @@
   gather_facts: true
 
   tasks:
+    - name: Enable nginx in amazon-linux-extras (only needed for Amazon Linux)
+      ansible.builtin.command: amazon-linux-extras enable nginx1
+      when: ansible_facts['distribution'] == "Amazon"
+
     - name: Install nginx
       ansible.builtin.package:
         name: nginx
