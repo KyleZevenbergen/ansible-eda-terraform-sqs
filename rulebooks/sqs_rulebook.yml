@@ -5,7 +5,7 @@
 
   sources:
     - ansible.eda.aws_sqs_queue:    # tell EDA to pull from SQS
-        name: my-orders-queue       # OR use queue_url: https://…
+        name: terraform-events       # OR use queue_url: https://…
         region: us-east-1           # AWS region of the queue
         wait_time_seconds: 20       # 0-20 s long-poll; keeps API calls low
 
