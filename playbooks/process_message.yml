@@ -19,18 +19,28 @@
   #       ansible_host: "{{ target_ip }}"
   #       groups: dynamic_hosts
 
-- name: Connect to the newly added host
+- name: Configure webserver on EC2 instance
   hosts: all
-  gather_facts: false
+  become: true
+  gather_facts: true
 
   tasks:
-    - name: Test connectivity with ping
-      ping:
+    - name: Install nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
 
-    - name: Run a remote command
-      ansible.builtin.shell: uptime
-      register: uptime_out
+    - name: Start and enable nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
 
-    - name: Show uptime result
-      debug:
-        var: uptime_out.stdout
+    - name: Create a simple web page
+      ansible.builtin.copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <html>
+          <head><title>Configured by Ansible</title></head>
+          <body><h1>Success! This server was configured by Ansible.</h1></body>
+          </html>
