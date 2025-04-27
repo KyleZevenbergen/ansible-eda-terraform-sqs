@@ -6,13 +6,8 @@
 
   vars:
     raw_event:   "{{ ansible_eda.event.body }}"
-    json_event:  "{{ raw_event | from_json }}"
 
   tasks:
     - name: Show raw message
       debug:
         msg: "RAW SQS payload: {{ raw_event }}"
-
-    - name: Show parsed message
-      debug:
-        var: json_event
