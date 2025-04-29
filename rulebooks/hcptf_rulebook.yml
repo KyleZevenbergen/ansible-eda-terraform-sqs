@@ -1,0 +1,13 @@
+# rulebooks/sqs_rulebook.yml
+---
+- name: run_task_listener
+  hosts: localhost
+  sources:
+    - ansible.eda: {}
+  rules:
+    - name: fire_for_every_message
+      condition: event is defined
+      action:
+        run_job_template:
+          name: terraform process job
+          organization: Default          
