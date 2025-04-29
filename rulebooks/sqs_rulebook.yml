@@ -3,7 +3,7 @@
 - name: run_task_listener
   hosts: localhost
   sources:
-    - ansible.eda:
+    - ansible.eda: {}
   #   - ansible.eda.aws_sqs_queue:
   #       name: terraform-runs
   #       region: us-east-1
@@ -12,7 +12,7 @@
   #       wait_time_seconds: 20
   rules:
     - name: fire_for_every_message
-      condition: event.body is defined
+      condition: event is defined
       action:
         run_job_template:
           name: terraform process job
