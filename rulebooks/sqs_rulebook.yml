@@ -3,10 +3,10 @@
 - name: run_task_listener
   hosts: localhost
   sources:
-    - ansible.eda.webhook: 
-      name: hcp tf
-      port: 5555
-      host: 0.0.0.0
+    - name: hcp tf
+      ansible.eda.webhook: 
+        port: 5555
+        host: 0.0.0.0
 
   #   - ansible.eda.aws_sqs_queue:
   #       name: terraform-runs
