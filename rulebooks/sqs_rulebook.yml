@@ -3,9 +3,7 @@
 - name: run_task_listener
   hosts: localhost
   sources:
-    # - name: hcp tf
-    #   ansible.eda.generic: 
-    #     payload: 
+    - name: hcp tf
 
   #   - ansible.eda.aws_sqs_queue:
   #       name: terraform-runs
