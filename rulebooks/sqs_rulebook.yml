@@ -2,7 +2,8 @@
 ---
 - name: run_task_listener
   hosts: localhost
-  # sources:
+  sources:
+    - ansible.eda:
   #   - ansible.eda.aws_sqs_queue:
   #       name: terraform-runs
   #       region: us-east-1
